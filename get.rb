@@ -12,7 +12,7 @@ tables = document.xpath('//table')
 
 d = document.xpath('//*[contains(text(), "As of")]')
 dt = d[0].text().sub('As of ', '')
-puts dt
+dt = Date.parse(dt)
 
 
 tbls = document.xpath('//*/table[contains(string(), "Region of Administering Provider")]')
@@ -22,4 +22,6 @@ counts = {}
 tbl.xpath('*/tr').each do |tr|
     counts[tr.children[0].text] = tr.children[1].text
 end
-puts counts.inspect
+File.open("#{dt}.json", 'w') do |f|
+  f.write counts.to_json
+end
