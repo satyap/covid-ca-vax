@@ -7,13 +7,8 @@ url = 'https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/VaccineDoses.asp
 file = HTTParty.get(url)
 
 document = Nokogiri::HTML.parse(file)
-h2 = document.xpath('//h2')
-tables = document.xpath('//table')
 
-d = document.xpath('//*[contains(text(), "As of")]')
-dt = d[0].text().sub('As of ', '')
-dt = Date.parse(dt)
-
+dt = Date.today
 
 tbls = document.xpath('//*/table[contains(string(), "Region of Administering Provider")]')
 tbl = tbls[0]
